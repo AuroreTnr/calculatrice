@@ -11,6 +11,7 @@ for(const button of buttons){
     button.addEventListener("click", calculatrice)
 }
 
+
 egal.addEventListener("click", resultat);
 clear.addEventListener("click", reset)
 
@@ -19,24 +20,27 @@ clear.addEventListener("click", reset)
 
 // FONCTIONS
 
-
+let interruptor = true;
+let value;
 let arr = [];
+let expression;
+
+
 
 
 function calculatrice(e){
-    
-    let nb = e.target.textContent;
-    arr.push(nb);
-    
-    input.value = arr.join(" ");
+    if (interruptor) {
+        value = e.target.getAttribute("id");
+        arr.push(value)
 
+        input.value =  expression = arr.join(" ").replace("×", "*").replace("÷", "/").replace("=","").replaceAll(" ", "");
+    }
     
 }
 
 
 function resultat(){
-    const expression = arr.join(" ").replace("×", "*").replace("÷", "/").replace("=","");
-    console.log((expression));
+    interruptor = false;
 
     try {
         input.value = eval(expression)
@@ -47,11 +51,12 @@ function resultat(){
 }
 
 function reset(){
+    interruptor = true;
+    
     arr = [];
 
     input.value = "0";
 }
-
 
 
 
