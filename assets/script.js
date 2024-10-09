@@ -4,6 +4,7 @@ const buttons = document.querySelectorAll("button");
 const egal = document.querySelector(".equal");
 const clear = document.querySelector("#clear");
 const input = document.getElementById("screen");
+const positifNegatif = document.querySelector("#signe")
 
 
 //EVENT
@@ -14,6 +15,7 @@ for(const button of buttons){
 
 egal.addEventListener("click", resultat);
 clear.addEventListener("click", reset);
+positifNegatif.addEventListener("click", signe)
 
 
 
@@ -34,95 +36,46 @@ function calculatrice(e){
     if (interruptor) {
         value = e.target.getAttribute("id");
         arr.push(value)
+        // console.log(arr);
+        
 
-        input.value =  expression = arr.join(" ").replace("=","").replaceAll(" ", "").replace("modulo", "%");
+        input.value =  expression = arr.join(" ").replaceAll(" ", "").replace("modulo", "%");
+        // console.log(expression);
+        
         
         // CALCUL %
         if (expression.includes("%")) {
-            pourcentage()
+            modulo()
     
         }
+
     }
 
         
 }
 
 
-// CALCUL %
-function pourcentage(){
+// CALCUL MODULO
+function modulo(){
 
-    if(arr.includes("+")) {
-        console.log(arr);
-        
-        
-        let sliceNb1 = arr.slice(arr[1], (arr.indexOf("+"))).join("");
-        let sliceNb2 = arr.slice((arr.indexOf("+") + 1), arr[arr.length]).join("").replace("modulo", "").replace("=", "");
+    expression.replace("modulo", "%")
+    console.log(arr);
 
+}
 
-        console.log(sliceNb1);
-        console.log(sliceNb2);
-        
+// CHANGER DE SIGNE
+function signe(){
+    positifNegatif.classList.toggle("-")
+    signeNegatif = positifNegatif.getAttribute("class");
+    arr.unshift(signeNegatif)
+    arr.pop()
+    
+    input.value = arr.join("");
 
-        expression = sliceNb2 + (sliceNb2 * sliceNb1/100);
-        
-        
-
-        // PAS BON
-
-    }
-    else if(arr.includes("-")) {
-        console.log(arr);
-        
-        let sliceNb1 = arr.slice(arr[1], (arr.indexOf("-"))).join("");
-        let sliceNb2 = arr.slice((arr.indexOf("-") + 1), arr[arr.length]).join("").replace("modulo", "").replace("=", "");
-
-        console.log(sliceNb1);
-        console.log(sliceNb2);
-
-        expression = sliceNb1 - (sliceNb1 * sliceNb2/100);
-
-        // OK
-
-    }
-    else if(arr.includes("*")) {
-        console.log(arr);
-        
-        let sliceNb1 = arr.slice(arr[1], (arr.indexOf("*"))).join("");
-        let sliceNb2 = arr.slice((arr.indexOf("*") + 1), arr[arr.length]).join("").replace("modulo", "").replace("=", "");
-
-        console.log(sliceNb1);
-        console.log(sliceNb2);
-
-        expression =  sliceNb1 * (sliceNb1 * sliceNb2/100);
-
-        // ????????????
-
-        // exemple 20 * 2%
-        // 2 % de 20 = 0.4
-        // 20 * 0.4 = 8
-
-
-    }
-    else if(arr.includes("/")) {
-        console.log(arr);
-        
-        let sliceNb1 = arr.slice(arr[1], (arr.indexOf("/"))).join("");
-        let sliceNb2 = arr.slice((arr.indexOf("/") + 1), arr[arr.length]).join("").replace("modulo", "").replace("=", "");
-
-        console.log(sliceNb1);
-        console.log(sliceNb2);
-
-        expression =  sliceNb1 / (sliceNb1 * sliceNb2/100);
-
-        // ????????????
-
-        // exemple 20 / 2%
-        // 2 % de 20 = 0.4
-        // 20 / 0.4 = 50
-
-
-    }
-
+    // PAS BON
+    
+    
+    
 }
     
 
@@ -130,13 +83,10 @@ function pourcentage(){
 
 // DISPLAY RESULTAT
 function resultat(){
-    interruptor = false;
-
-    console.log(arr.join("").replace("modulo", "").replace("=", ""));
-    
+    interruptor = false; 
     
     try {
-        input.value = eval(expression)
+        input.value = eval(expression.replace("=", ""))
     }catch (error) {
         input.value = "Erreur";
     }
@@ -154,9 +104,6 @@ function reset(){
 
     input.value = "0";
 }
-
-
-
 
 
 
