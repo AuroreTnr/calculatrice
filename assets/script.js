@@ -15,7 +15,7 @@ for(const button of buttons){
 
 egal.addEventListener("click", resultat);
 clear.addEventListener("click", reset);
-positifNegatif.addEventListener("click", signe)
+positifNegatif.addEventListener("click", calculatrice)
 
 
 
@@ -34,13 +34,21 @@ let expression;
 function calculatrice(e){
     // CALCUL (+ - * /)
     if (interruptor) {
+        
         value = e.target.getAttribute("id");
         arr.push(value)
-        // console.log(arr);
+        console.log(arr);
         
+        // POSITIF/NEGATIF
+        if(value === "signe"){
+            arr.splice(arr.indexOf("signe") - 1, 0, "-")
+            console.log(arr);
+            
+        }
 
-        input.value =  expression = arr.join(" ").replaceAll(" ", "").replace("modulo", "%");
-        // console.log(expression);
+
+        input.value =  expression = arr.join(" ").replaceAll(" ", "").replace("modulo", "%").replace("signe", "");
+        console.log(expression);
         
         
         // CALCUL %
@@ -61,21 +69,6 @@ function modulo(){
     expression.replace("modulo", "%")
     console.log(arr);
 
-}
-
-// CHANGER DE SIGNE
-function signe(){
-    positifNegatif.classList.toggle("-")
-    signeNegatif = positifNegatif.getAttribute("class");
-    arr.unshift(signeNegatif)
-    arr.pop()
-    
-    input.value = arr.join("");
-
-    // PAS BON
-    
-    
-    
 }
     
 
