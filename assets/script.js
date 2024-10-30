@@ -39,12 +39,12 @@ function calculatrice(e){
         arr.push(value)
         console.log(arr);
         
-        // POSITIF/NEGATIF
-        if(value === "signe"){
-            arr.splice(arr.indexOf("signe") - 1, 0, "-")
-            console.log(arr);
+        // POSITIF/NEGATIF NON RESOLU
+        // if(value === "signe"){
+        //     arr.splice(arr.indexOf("signe") - 1, 0, "-")
+        //     console.log(arr);
             
-        }
+        // }
 
 
         input.value =  expression = arr.join(" ").replaceAll(" ", "").replace("modulo", "%").replace("signe", "");
